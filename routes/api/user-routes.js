@@ -1,10 +1,14 @@
-const router = require('express').Router
-//       
-//     getUsers,
-//     getSingleUser,
-//     createUser,
-//     updateUser,
-//     deleteUser,
+const router = require('express').Router()
+      
+const {
+    getUsers,
+    getSingleUser,
+    createUser,
+    updateUser,
+    deleteUser,
+    addFriend,
+    removeFriend,
+} = require('../../controllers/user-controller')
 
 // routes
 // Get all users /api/users
