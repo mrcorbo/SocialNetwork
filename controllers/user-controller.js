@@ -79,17 +79,31 @@ const userController = {
     },
     // Add friend to user's friendlist
     addFriend(req, res) {
-        User.findOneAndUpdate({ _id: req.params.userId }, { $addToSet: { friends: req.params.friendId }}, { new:true })
-        .then((dbUserData) => {
-            if (!dbUserData) {
-                return res.status(404).json({ message: 'This user id does not exist' });
-            }
-            res.json(dbUserData)
-        })
-        .catch((err) => {
-            console.log(err)
-            res.status(500).json(err)
-        })
+        User.findOneAndUpdate({ _id: req.params.userId }, { $addToSet: { friends: req.params.friendId } }, { new: true })
+            .then((dbUserData) => {
+                if (!dbUserData) {
+                    return res.status(404).json({ message: 'This user id does not exist' });
+                }
+                res.json(dbUserData)
+            })
+            .catch((err) => {
+                console.log(err)
+                res.status(500).json(err)
+            })
+    },
+    // delete friend from user's friendlist
+    removeFriend(req, res) {
+        User.findOneAndUpdate({ _id: req.params.userId }, { $pull: { friends: req.params.friendId } }, { new: true })
+            .then((dbUserData) => {
+                if (!dbUserData) {
+                    return res.status(404).json({ message: 'This user id does not exist' });
+                }
+                res.json(dbUserData)
+            })
+            .catch((err) => {
+                console.log(err)
+                res.status(500).json(err)
+            })
     },
 }
 
