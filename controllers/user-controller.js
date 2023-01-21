@@ -13,7 +13,7 @@ const userController = {
                 res.status(500).json(err)
               })
     },
-    // grabs single user according to id
+    // grabs single user according to id and all corresponding thoughts & friends
     getSingleUser(req, res) {
         User.findOne({ _id: req.params.userId })
             .select('-__v')
@@ -29,6 +29,55 @@ const userController = {
                 console.log(err)
                 res.status(500).json(err)
             })
-    }
+    },
+    // Create new user
+    createUser(req,res) {
+        User.create(req.body)
+            .then((dbUserData) => {
+                res.json(dbUserData)
+            })
+            .catch((err) => {
+                console.log(err)
+                res.status(500).json(err)
+            })
+    },
+    // Update existing user
+    updateUser(req, res) {
+        User.findOneAndUpdate(
+            { _id: req.params.userId },
+            {  $set: req.body },
+            {
+                runValidators: true,
+                new: true,
+            }
+        )
+            .then((dbUserData) => {
+                if(!dbUserData) {
+                    return res.status(404).json({ message: 'This user id does not exist'})    
+                }
+            })
+            .catch((err) => {
+                console.log(err)
+                res.status(500).json(err)
+            })
+    },
+    // delete user 
+    deleteUser(req, res) {
+    User.findOneAndDelete({ _id: req.params.userId })
+    .then((dbUserData) => {
+        if (!dbUserData) {
+            return res.status(404).json({ message: 'This user id does not exist' });
+        }
+    })
+    .then(() => {
+        res.json({message: 'User deleted'})
+    })
+    .catch((err) => {
+        console.log(err)
+        res.status(500).json(err)
+    })
 
+},
 }
+
+module.exports = userController
