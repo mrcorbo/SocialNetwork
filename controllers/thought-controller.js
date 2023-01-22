@@ -47,10 +47,30 @@ const thoughtController = {
         })
     },
     updateThought(req,res) {
-
+        Thought.findOneAndUpdate({ _id: req.params.thoughtId }, { $set: req.body }, { runValidators: true, new: true })
+            .then((dbThoughtData) => {
+                if (!dbThoughtData) {
+                    return res.status(404).jason({ message: 'This thought has run away and cannot be found'})
+                }
+                res.json(dbThoughtData)
+            })
+            .catch((err) => {
+                console.log(err)
+                res.status(500).json(err)
+            })
     },
     deleteThought(req,res) {
-
+        Thought.FindOneAndRemove({ _id: req.params.thoughtId })
+        .then((dbThoughtData) => {
+            if (!dbThoughtData) {
+                return res.status(404).jason({ message: 'This thought has run away and cannot be found'})
+            }
+            res.json(dbThoughtData)
+        })
+        .catch((err) => {
+            console.log(err)
+            res.status(500).json(err)
+        })
     },
     addReaction(req,res) {
 
