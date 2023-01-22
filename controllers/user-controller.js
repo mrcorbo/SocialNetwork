@@ -98,8 +98,11 @@ const userController = {
                 if (!dbUserData) {
                     return res.status(404).json({ message: 'This user id does not exist' });
                 }
-                res.json(dbUserData)
+                return Thought.deleteMany({ _id: { $in: dbUserData.thoughts } });
             })
+            .then(() => {
+                res.json({ message: 'User has been deleted and all their thoughts have left too'})
+            })   
             .catch((err) => {
                 console.log(err)
                 res.status(500).json(err)
