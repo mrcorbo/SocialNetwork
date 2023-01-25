@@ -12,7 +12,7 @@ const userSchema = new Schema(
             type:String,
             required: true,
             unique: true,
-            match: [/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/]
+            match: [/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/]
         },
         thoughts: [
             {

@@ -17,7 +17,7 @@ Allows people to talk to each other and keep in touch with each other using thou
 ## Licenses
 none
 ## Test
-Ran it and tested using insomnia
+Ran it and attempted to make it work through insomnia.  Had some major hang ups and was unable to get full functionality out of the program.
 ## Contributors
 none
 ## Contact info
